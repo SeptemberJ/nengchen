@@ -1,0 +1,77 @@
+<template>
+  <div class="SideBar">
+    <!-- #545c64  #001529-->
+    <el-menu :default-active="menuIdx" class="el-menu-vertical-demo" @select="changeMenu" background-color="#001529" text-color="hsla(0,0%,100%,.65)" :collapse="isCollapse" :unique-opened="true">
+      <el-menu-item index="0" id="logoMenu">
+        <!-- 146 32 -->
+        <img style="width:100px;height:100%;margin:0 auto;" src="../../static/images/Logo2.png">
+        <!-- <span slot="title" style="padding-left: 10px;font-size:24px;color:#fff;font-weight:bold;">能 臣</span> -->
+      </el-menu-item>
+      <el-submenu index="1">
+        <template slot="title">
+          <i class="el-icon-chat-dot-square"></i>
+          <span slot="title">询价管理</span>
+        </template>
+        <el-menu-item index="1-1">询价单</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="2">
+        <i class="el-icon-tickets"></i>
+        <span slot="title">采购订单</span>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <i class="el-icon-document"></i>
+        <span slot="title">送货单</span>
+      </el-menu-item>
+      <el-menu-item index="8">
+        <i class="el-icon-user-solid"></i>
+        <span slot="title">基础信息</span>
+      </el-menu-item>
+    </el-menu>
+  </div>
+</template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'SideBar',
+  props: ['isCollapse'],
+  data () {
+    return {
+    }
+  },
+  computed: {
+    ...mapState({
+      menuIdx: state => state.menuIdx
+    })
+  },
+  methods: {
+    ...mapActions([
+      'changeMenuIdx',
+      'changeModuleIdx'
+    ]),
+    changeMenu (index, keyPath) {
+      // console.log(index, keyPath)
+      this.changeMenuIdx(index)
+      this.changeModuleIdx(keyPath[0])
+      // if (index === '0') { // 点击Logo显示主界面
+      //   this.changeMenuIdx('1-1')
+      // } else {
+      //   this.changeMenuIdx(index)
+      // }
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.SideBar{
+  height: 100%;
+  .el-menu-item{
+    text-align: left;
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 150px;
+    min-height: 400px;
+  }
+}
+</style>
